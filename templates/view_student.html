@@ -1,0 +1,44 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<style>
+    body{
+       background-color: rgba(235, 233, 233, 0.932);
+   }
+</style>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10"> 
+            <h1 class="mt-2 text-center ">Student Details</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered bg-light">
+                        <tr class="bg-dark text-white ">
+                            <th>STUDENT_NAME</th>
+                            <th>ADDRESS</th>
+                            <th>AGE</th>
+                            <th>JOINING_DATE</th>
+                            <th>COURSE</th>
+                            <th>COURSE_FEE</th>
+                            <th>ACTION</th>
+                        </tr>
+                    
+                        {% for s in students %}
+                        <tr>
+                            <td>{{s.student_name}}</td>
+                            <td>{{s.student_address}}</td>
+                            <td>{{s.student_age}}</td>
+                            <td>{{s.joining_date}}</td>
+                            <td>{{s.course.course_name}}</td>
+                            <td>{{s.course.fee}}</td>
+                            <td>
+                                <a href="{% url 'edit' s.id %}">Edit</a> |
+                                <a href="{% url 'delete' s.id %}" class="text-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

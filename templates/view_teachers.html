@@ -1,0 +1,43 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<style>
+     body{
+        background-color: rgba(235, 233, 233, 0.932);
+    }
+</style>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-10">
+            <h1 class="mt-2 text-center">Teacher Details</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered bg-light">
+                    <tr class="bg-dark text-white ">
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>ADDRESS</th>
+                        <th>EMAIL</th>
+                        <th>AGE</th>
+                        <th>COURSE</th>
+                        <th>IMAGE</th>
+                        <th>ACTION</th>
+                    </tr>
+                    {% for teacher in teachers %}
+                    <tr>
+                        <td>{{ teacher.user.id }}</td>
+                        <td>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</td>
+                        <td>{{ teacher.address }}</td>
+                        <td>{{ teacher.user.email }}</td>
+                        <td>{{ teacher.age }}</td>
+                        <td>{{ teacher.course.course_name }}</td>
+                        <td><img src="{{ teacher.img.url }}" alt="Teacher Image" style="max-width: 100px; max-height: 100px;"></td>
+                        <td>
+                            <a href="{% url 'delete_teacher' teacher.user.id %}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

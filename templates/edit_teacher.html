@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Teacher Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        .card h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Edit Teacher Details</h1>
+            <form action="{% url 'edit_details_tchr' teach.user.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+               
+                <div class="form-group">
+                    <label for="fname">First Name</label>
+                    <input type="text" class="form-control" id="fname" name="fname" value="{{ teach.user.first_name }}">
+                </div>
+                <div class="form-group">
+                    <label for="lname">Last Name</label>
+                    <input type="text" class="form-control" id="lname" name="lname" value="{{ teach.user.last_name }}">
+                </div>
+                <div class="form-group">
+                    <label for="uname">User Name</label>
+                    <input type="text" class="form-control" id="uname" name="uname" value="{{ teach.user.username }}">
+                </div>
+                <div class="form-group">
+                    <label for="addr">Address</label>
+                    <input type="text" class="form-control" id="addr" name="addr" value="{{ teach.address }}">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" value="{{ teach.age }}">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ teach.user.email }}">
+                </div>
+                <div class="form-group">
+                    <label for="cnum">Contact Number</label>
+                    <input type="text" class="form-control" id="cnum" name="cnum" value="{{ teach.contact }}">
+                </div>
+                <div class="form-group">
+                    <label for="sel">Select Course</label>
+                    <select class="form-control" id="sel" name="sel">
+                        {% for course in course %}
+                            <option value="{{ course.id }}" {% if course.id == teach.course.id %} selected {% endif %}>{{ course.course_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="img">Upload Your photo</label>
+                    <br>
+                    <img src="{{ teach.img.url }}" style="max-width: 200px; max-height: 200px;">
+                    <input type="file" name="img" class="form-control-file mt-2" accept="image/*" >
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
